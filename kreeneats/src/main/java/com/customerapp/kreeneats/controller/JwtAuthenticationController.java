@@ -18,6 +18,7 @@ import com.customerapp.kreeneats.service.JwtUserDetailsService;
 import com.customerapp.kreeneats.jwtconfig.JwtTokenUtil;
 import com.customerapp.kreeneats.model.JwtRequest;
 import com.customerapp.kreeneats.model.JwtResponse;
+import com.customerapp.kreeneats.model.UserDTO;
 
 @RestController
 @CrossOrigin
@@ -47,6 +48,11 @@ public class JwtAuthenticationController {
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.save(user));
+	}	
 
 	private void authenticate(String username, String password) throws Exception {
 		try {
